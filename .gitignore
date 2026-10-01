@@ -1,0 +1,43 @@
+## Visual Studio / Build Artifacts
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Publish outputs
+publish/
+backend/publish/
+agent/publish/
+
+## Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+## Logs & Databases
+logs/
+*.log
+*.mdf
+*.ldf
+
+## Environment & Secrets
+.env
+.env.local
+.env.*.local
+appsettings.Production.json
+agentsettings.json
+
+## IDE / OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db

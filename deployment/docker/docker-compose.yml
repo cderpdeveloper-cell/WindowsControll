@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Database: Microsoft SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: wcc-sqlserver
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Password123!
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  # RDP Protocol Gateway: Apache Guacamole daemon
+  guacd:
+    image: guacamole/guacd:latest
+    container_name: wcc-guacd
+    restart: always
+    ports:
+      - "4822:4822"
+
+  # Backend: ASP.NET Core Web API & SignalR Hub
+  api:
+    image: mcr.microsoft.com/dotnet/aspnet:10.0
+    container_name: wcc-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=WindowsControlCenterDb;User Id=sa;Password=YourStrong@Password123!;TrustServerCertificate=True;
+    depends_on:
+      - sqlserver
+      - guacd
+
+  # Frontend: React Vite Web Dashboard (Nginx)
+  web:
+    image: nginx:alpine
+    container_name: wcc-frontend
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ../../frontend/windows-control-center-web/dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+
+volumes:
+  sql_data:

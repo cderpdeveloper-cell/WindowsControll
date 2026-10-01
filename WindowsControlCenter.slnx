@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/agent/" />
+  <Folder Name="/agent/src/">
+    <Project Path="agent/src/WindowsControlCenter.Agent.Core/WindowsControlCenter.Agent.Core.csproj" />
+    <Project Path="agent/src/WindowsControlCenter.Agent/WindowsControlCenter.Agent.csproj" />
+  </Folder>
+  <Folder Name="/backend/" />
+  <Folder Name="/backend/src/">
+    <Project Path="backend/src/WindowsControlCenter.API/WindowsControlCenter.API.csproj" />
+    <Project Path="backend/src/WindowsControlCenter.Application/WindowsControlCenter.Application.csproj" />
+    <Project Path="backend/src/WindowsControlCenter.Domain/WindowsControlCenter.Domain.csproj" />
+    <Project Path="backend/src/WindowsControlCenter.Infrastructure/WindowsControlCenter.Infrastructure.csproj" />
+  </Folder>
+</Solution>
